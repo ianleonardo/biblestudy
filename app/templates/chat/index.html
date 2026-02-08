@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Bible Study — AI Chat{% endblock %}
+
+{% block body %}
+<header class="header header--chat">
+  <div class="header__row">
+    <div class="header__brand">
+      <span class="header__icon header__icon--book" aria-hidden="true"></span>
+      <h1 class="header__title">Bible Study</h1>
+    </div>
+    <a href="{{ url_for('quiz.index') }}" class="header__btn header__btn--quiz">
+      <span class="header__btn-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </span>
+      <span>Take a quiz</span>
+    </a>
+  </div>
+  <p class="header__subtitle">Ask questions and explore Scripture with AI</p>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar" aria-label="Chat history" data-empty="true">
+    <div class="sidebar__head">
+      <h2 class="sidebar__title">Chat history</h2>
+      <button type="button" class="sidebar__toggle" id="sidebar-toggle" aria-label="Hide chat history" title="Hide chat history">
+        <svg class="sidebar__toggle-ico sidebar__toggle-ico--collapse" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        <svg class="sidebar__toggle-ico sidebar__toggle-ico--expand" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+    <ul class="sidebar__list" id="chat-history-list"></ul>
+    <p class="sidebar__empty" id="chat-history-empty">No messages yet.</p>
+  </aside>
+
+  <main class="chat">
+  <form class="chat__form chat__form--top" id="chat-form" aria-label="Send a message">
+    <label for="chat-input" class="sr-only">Your message</label>
+    <textarea
+      id="chat-input"
+      class="chat__input"
+      name="message"
+      rows="1"
+      placeholder="Ask a question about the Bible…"
+      maxlength="2000"
+      required
+    ></textarea>
+    <button type="submit" class="chat__submit" id="chat-submit" aria-label="Send">
+      <span class="chat__submit-text">Send</span>
+    </button>
+  </form>
+
+  <div class="chat__messages" id="chat-messages" role="log" aria-live="polite">
+    <div class="chat__welcome" id="chat-welcome">
+      <p>Start by asking about a passage, theme, or character. For example:</p>
+      <ul>
+        <li>"What does Romans 8:28 mean in context?"</li>
+        <li>"Explain the fruit of the Spirit in Galatians 5"</li>
+        <li>"Who was Melchizedek and why does Hebrews mention him?"</li>
+      </ul>
+    </div>
+  </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

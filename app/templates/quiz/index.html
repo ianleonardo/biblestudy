@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Bible Study — Quiz{% endblock %}
+
+{% block body %}
+<header class="header header--quiz">
+  <div class="header__row">
+    <div class="header__brand">
+      <span class="header__icon header__icon--quiz" aria-hidden="true"></span>
+      <h1 class="header__title">Bible Study Quiz</h1>
+    </div>
+    <a href="{{ url_for('chat.index') }}" class="header__btn header__btn--back">
+      <span class="header__btn-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </span>
+      <span>Back to chat</span>
+    </a>
+  </div>
+  <p class="header__subtitle">Test your understanding. Choose a level and take up to 10 questions.</p>
+</header>
+
+<main class="quiz">
+  <!-- Step 1: Choose level & start -->
+  <section class="quiz__step quiz__step--1" id="quiz-step-1" aria-label="Quiz setup">
+    <form class="quiz__form" id="quiz-setup-form">
+      <label for="quiz-level" class="quiz__label">Difficulty</label>
+      <select id="quiz-level" class="quiz__select" name="level" required>
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <label for="quiz-topic" class="quiz__label">Topic or passage (optional)</label>
+      <input type="text" id="quiz-topic" class="quiz__input" name="topic" placeholder="e.g. Romans 8, Fruit of the Spirit" maxlength="120">
+      <button type="submit" class="quiz__btn quiz__btn--primary" id="quiz-start-btn">Start quiz</button>
+    </form>
+  </section>
+
+  <!-- Step 2: Questions (one at a time) -->
+  <section class="quiz__step quiz__step--2" id="quiz-step-2" hidden aria-label="Quiz questions">
+    <p class="quiz__loading" id="quiz-loading">Generating questions…</p>
+    <form class="quiz__questions" id="quiz-questions-form" hidden>
+      <div class="quiz__progress" id="quiz-progress"></div>
+      <div class="quiz__slide-wrap">
+        <div class="quiz__slide" id="quiz-slide"></div>
+      </div>
+      <div class="quiz__nav">
+        <button type="button" class="quiz__nav-btn quiz__nav-btn--prev" id="quiz-prev" aria-label="Previous question" hidden>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          <span>Previous</span>
+        </button>
+        <button type="button" class="quiz__nav-btn quiz__nav-btn--next" id="quiz-next" aria-label="Next question">
+          <span>Next</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <button type="submit" class="quiz__nav-btn quiz__nav-btn--submit" id="quiz-submit-btn" hidden>Submit quiz</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Step 3: Score & review -->
+  <section class="quiz__step quiz__step--3" id="quiz-step-3" hidden aria-label="Quiz results">
+    <div class="quiz__score-wrap">
+      <div class="quiz__score-icon" aria-hidden="true"></div>
+      <p class="quiz__score" id="quiz-score"></p>
+      <p class="quiz__score-detail" id="quiz-score-detail"></p>
+    </div>
+    <div class="quiz__review" id="quiz-review"></div>
+    <div class="quiz__actions">
+      <a href="{{ url_for('quiz.index') }}" class="quiz__btn quiz__btn--secondary">
+        <span class="quiz__btn-ico">📋</span> Take another quiz
+      </a>
+      <a href="{{ url_for('chat.index') }}" class="quiz__btn quiz__btn--primary">
+        <span class="quiz__btn-ico">💬</span> Back to new chat
+      </a>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}
