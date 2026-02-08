@@ -263,18 +263,18 @@
     }
   });
 
-  input.addEventListener("input", function () {
-    input.style.height = "auto";
-    input.style.height = Math.min(input.scrollHeight, 160) + "px";
-  });
-
   var sidebarEl = document.getElementById("sidebar");
   var sidebarToggle = document.getElementById("sidebar-toggle");
   if (sidebarEl && sidebarToggle) {
-    sidebarToggle.addEventListener("click", function () {
-      var collapsed = sidebarEl.classList.toggle("sidebar--collapsed");
+    function setCollapsed(collapsed) {
+      if (collapsed) sidebarEl.classList.add("sidebar--collapsed");
+      else sidebarEl.classList.remove("sidebar--collapsed");
       sidebarToggle.setAttribute("aria-label", collapsed ? "Show chat history" : "Hide chat history");
       sidebarToggle.setAttribute("title", collapsed ? "Show chat history" : "Hide chat history");
+    }
+    if (window.innerWidth <= 768) setCollapsed(true);
+    sidebarToggle.addEventListener("click", function () {
+      setCollapsed(!sidebarEl.classList.contains("sidebar--collapsed"));
     });
   }
 })();

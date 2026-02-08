@@ -35,15 +35,16 @@
   <main class="chat">
   <form class="chat__form chat__form--top" id="chat-form" aria-label="Send a message">
     <label for="chat-input" class="sr-only">Your message</label>
-    <textarea
+    <input
+      type="text"
       id="chat-input"
       class="chat__input"
       name="message"
-      rows="1"
       placeholder="Ask a question about the Bible…"
       maxlength="2000"
       required
-    ></textarea>
+      autocomplete="off"
+    >
     <button type="submit" class="chat__submit" id="chat-submit" aria-label="Send">
       <span class="chat__submit-text">Send</span>
     </button>

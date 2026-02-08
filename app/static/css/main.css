@@ -98,8 +98,8 @@ body {
 .header__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 2.10rem;
-  font-weight: 600;
+  font-size: 2.20rem;
+  font-weight: 650;
   color: var(--text);
 }
 
@@ -616,7 +616,7 @@ body {
 .chat__input {
   flex: 1;
   min-height: 48px;
-  max-height: 160px;
+  height: 48px;
   padding: 0.75rem 1rem;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -625,7 +625,6 @@ body {
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.5;
-  resize: none;
   transition: border-color 0.15s ease;
 }
 
@@ -980,4 +979,126 @@ body {
 
 .quiz__btn-ico {
   margin-right: 0.25rem;
+}
+
+/* Mobile-friendly */
+@media (max-width: 768px) {
+  .header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .header__row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .header--chat .header__row {
+    justify-content: space-between;
+  }
+
+  .header--chat .header__btn {
+    position: static;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .header--chat .header__btn .header__btn-icon + span {
+    display: inline;
+  }
+
+  .header__title {
+    font-size: 1.5rem;
+  }
+
+  .header__brand {
+    min-width: 0;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .header--chat .header__brand {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .header__subtitle {
+    font-size: 0.8rem;
+  }
+
+  /* Sidebar: minimal on mobile (collapsed by default) */
+  .sidebar {
+    width: 48px;
+    min-width: 48px;
+  }
+
+  .sidebar .sidebar__title,
+  .sidebar .sidebar__list,
+  .sidebar .sidebar__empty {
+    display: none !important;
+  }
+
+  .sidebar .sidebar__head {
+    padding: 0.5rem;
+    border-bottom: none;
+    justify-content: center;
+  }
+
+  .sidebar .sidebar__toggle-ico--collapse {
+    display: none !important;
+  }
+
+  .sidebar .sidebar__toggle-ico--expand {
+    display: block !important;
+  }
+
+  /* When sidebar is expanded on mobile, use more width */
+  .sidebar:not(.sidebar--collapsed) {
+    width: min(260px, 75vw);
+    min-width: min(260px, 75vw);
+  }
+
+  .sidebar:not(.sidebar--collapsed) .sidebar__title,
+  .sidebar:not(.sidebar--collapsed) .sidebar__list,
+  .sidebar:not(.sidebar--collapsed) .sidebar__empty {
+    display: block !important;
+  }
+
+  .sidebar:not(.sidebar--collapsed) .sidebar__toggle-ico--collapse {
+    display: block !important;
+  }
+
+  .sidebar:not(.sidebar--collapsed) .sidebar__toggle-ico--expand {
+    display: none !important;
+  }
+
+  .sidebar:not(.sidebar--collapsed) .sidebar__head {
+    justify-content: space-between;
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chat {
+    padding: 0.75rem;
+  }
+
+  .chat__form--top {
+    padding: 0 0 0.75rem;
+  }
+
+  .chat__input {
+    min-height: 44px;
+    height: 44px;
+    font-size: 16px; /* prevents zoom on focus in iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .header__title {
+    font-size: 1.35rem;
+  }
+
+  .header--chat .header__btn span:not(.header__btn-icon) {
+    display: none; /* "Take a quiz" → icon only on very small */
+  }
 }
