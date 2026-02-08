@@ -35,6 +35,31 @@ Open http://127.0.0.1:5000 in your browser.
 - `run.py` — entry point for local development
 - `requirements.txt` — Python dependencies
 
+## Deploy to GCP (Cloud Run)
+
+1. **Build and push the image** (Artifact Registry; replace `REGION` and `PROJECT_ID`):
+
+   ```bash
+   gcloud auth configure-docker REGION-docker.pkg.dev
+   docker build -t REGION-docker.pkg.dev/PROJECT_ID/biblestudy/app .
+   docker push REGION-docker.pkg.dev/PROJECT_ID/biblestudy/app
+   ```
+
+2. **Deploy to Cloud Run**:
+
+   ```bash
+   gcloud run deploy biblestudy \
+     --image REGION-docker.pkg.dev/PROJECT_ID/biblestudy/app \
+     --region REGION \
+     --platform managed \
+     --allow-unauthenticated \
+     --set-env-vars "GEMINI_API_KEY=your-key" \
+     --set-env-vars "FLASK_ENV=production" \
+     --set-env-vars "SECRET_KEY=your-secret"
+   ```
+
+   Or use Secret Manager for `GEMINI_API_KEY` and `SECRET_KEY` instead of `--set-env-vars`. The container listens on `PORT` (Cloud Run sets this to 8080).
+
 ## AI backend (Gemini)
 
 The chat uses **Google Gemini** by default. Set `GEMINI_API_KEY` in `.env` (get one at [Google AI Studio](https://aistudio.google.com/app/apikey)). The app uses the `gemini-2.5-flash` model with a Bible-study system prompt. To use another LLM, edit `_get_ai_reply()` in `app/blueprints/chat/routes.py`.
